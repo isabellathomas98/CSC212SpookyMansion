@@ -30,6 +30,8 @@ public class SpookyMansion implements GameWorld {
 		entranceHall.addExit(new Exit("attic", "There are stairs leading up."));
 		entranceHall.addExit(new Exit("kitchen", "There is a red door."));
 		entranceHall.addExit(new Exit("closet", "There is a brown door."));
+		//I have put an item in the entrance hall. It is a chair. 
+		entranceHall.addItem("chair");
 
 		String EMOJI_SKULL = "\uD83D\uDC80";
 		Place closet = insert(Place.create("closet", "On the wall is scratched a series of letters and a skull icon ("+EMOJI_SKULL+").\n"
@@ -42,6 +44,14 @@ public class SpookyMansion implements GameWorld {
 						+ "You get the sense a secret is nearby, but you only see the stairs you came from."));
 		basement.addExit(new Exit("entranceHall", "There are stairs leading up."));
 		basement.addExit(new Exit("fallingPit", "There appears to be a pit in the center of the room you could climb into..."));
+		basement.addExit(new Exit("basement_bedroom", "go 2 basement bedroom."));
+		//Here is the secret exit to the secret room from the basement.
+		basement.addExit(new SecretExit("secretRoom","You've found a door to a secret room!!!"));
+		
+		
+		Place basement_bedroom=insert(
+				Place.create("basement_bedroom", "the basement bedroom"));
+		basement_bedroom.addExit(new Exit("basement","go back to basement"));
 		
 		Place fallingPit = insert(
 				Place.create("fallingPit", "I don't know what you were thinking..."));
@@ -51,12 +61,18 @@ public class SpookyMansion implements GameWorld {
 				"Something rustles in the rafters as you enter the attic. Creepy.\n" + "It's big up here."));
 		attic.addExit(new Exit("entranceHall", "There are stairs leading down."));
 		attic.addExit(new Exit("attic2", "There is more through an archway."));
+		attic.addExit(new Exit("attic_bathroom","go to  attic bathroom"));
 
 		Place attic2 = insert(Place.create("attic2", "There's definitely a bat in here somewhere.\n"
 				+ "This part of the attic is brighter, so maybe you're safe here."));
 		attic2.addExit(new Exit("attic", "There is more back through the archway."));
 		attic2.addExit(new Exit("balcony", "There is a balcony."));
 		attic2.addExit(new Exit("dumbwaiter", "There is a dumbwaiter."));
+		
+		Place attic_bathroom = insert(Place.create("attic_bathroom",
+				"in attic bathroom"));
+		attic_bathroom.addExit(new Exit("attic","Go back in attic."));
+		attic_bathroom.addItem("Key");
 
 		
 		Place balcony = insert(Place.create("balcony", "The night is pitch-black."));
@@ -78,11 +94,13 @@ public class SpookyMansion implements GameWorld {
 		Place secretRoom = insert(Place.create("secretRoom", "You have found the secret room."));
 		secretRoom.addExit(new Exit("labyrinth0", "There is door with a skull on it... "+EMOJI_SKULL));
 		secretRoom.addExit(new Exit("hallway0", "There is a long hallway."));
+		secretRoom.addExit(new Exit("basement", "door to the basement"));
 
-		int hallwayDepth = 3;
+		//here we have made the hallway even longer and we print how far we've gone.
+		int hallwayDepth = 5;
 		int lastHallwayPart = hallwayDepth - 1;
 		for (int i = 0; i < hallwayDepth; i++) {
-			Place hallwayPart = insert(Place.create("hallway" + i, "This is a very long hallway."));
+			Place hallwayPart = insert(Place.create("hallway" + i, "This is a very long hallway.You have gone:" + i));
 			if (i == 0) {
 				hallwayPart.addExit(new Exit("secretRoom", "Go back."));
 			} else {

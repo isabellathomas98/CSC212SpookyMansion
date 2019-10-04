@@ -17,7 +17,14 @@ public class Place {
 	/**
 	 * This is the identifier of the place.
 	 */
+	
 	private String id;
+	
+	/**
+	 * This is a list of items in the place.
+	 */
+	private List<String> items;
+	
 	/**
 	 * What to tell the user about this place.
 	 */
@@ -26,6 +33,11 @@ public class Place {
 	 * Whether reaching this place ends the game.
 	 */
 	private boolean terminal;
+	
+	/**
+	 * Whether or not we've been here before. Start out with false.
+	 */
+	private boolean visited=false;
 	
 	/**
 	 * Internal only constructor for Place. Use {@link #create(String, String)} or {@link #terminal(String, String)} instead.
@@ -38,6 +50,8 @@ public class Place {
 		this.description = description;
 		this.exits = new ArrayList<>();
 		this.terminal = terminal;
+		//Here we have our list of items. 
+		this.items= new ArrayList<String>();
 	}
 	
 	/**
@@ -47,6 +61,16 @@ public class Place {
 	public void addExit(Exit exit) {
 		this.exits.add(exit);
 	}
+	
+	/**
+	 * This is how we would create a new item, which is a string.
+	 */
+	public void addItem(String item) {
+		this.items.add(item);
+	}
+	
+	
+	
 	
 	/**
 	 * For gameplay, whether this place ends the game.
@@ -73,6 +97,19 @@ public class Place {
 	}
 
 	/**
+	 * New printed list, this time with items you can see in the room.
+	 */
+	public void printDescription() {
+		System.out.println(this.description);
+		System.out.print("You see: ");
+		for (String item: this.items) {
+			System.out.print(item);
+		}
+		System.out.println("  ......");
+	}
+	
+	
+	/**
 	 * Get a view of the exits from this Place, for navigation.
 	 * @return all the exits from this place.
 	 */
@@ -83,6 +120,20 @@ public class Place {
 		}
 		return visible;
 	}
+	
+	/**
+	 * now for this place it is marked as visited
+	 * @return true for we have visited this place
+	 */
+	public boolean hasVisited() {
+		return this.visited;
+	}
+	
+	
+	public void visit() {
+		this.visited=true;
+	}
+	
 	
 	/**
 	 * This is a terminal location (good or bad).
@@ -127,5 +178,23 @@ public class Place {
 		}
 		return false;
 	}
+	
+	/**
+	 * Implements items in a place.
+	 */
+	public List<String> getItems() {
+		return this.items;
+	}
+	
+	/**
+	 * When you take an item it gets added to taken items.
+	 * @return taken items
+	 */
+	public List<String> take() {
+		List<String> taken_items = this.items;
+		this.items = new ArrayList<String>();
+		return taken_items;
+	}
+	
 	
 }

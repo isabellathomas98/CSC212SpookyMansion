@@ -47,6 +47,7 @@ public class TextInput {
 		StringBuilder join = new StringBuilder();
 		for (String line : testInput) {
 			join.append(line).append('\n');
+			
 		}
 		this.input = new BufferedReader(new StringReader(join.toString()));
 	}
@@ -64,7 +65,7 @@ public class TextInput {
 			System.out.flush();
 			String resp;
 			try {
-				resp = input.readLine();
+				resp = input.readLine(); 
 				if (resp == null) {
 					return Collections.emptyList();
 				}
@@ -91,7 +92,7 @@ public class TextInput {
 	 */
 	public boolean confirm(String prompt) {
 		while (true) {
-			List<String> response = this.getUserWords(prompt + " (y/n): ");
+			List<String> response = this.getUserWords(prompt + " (y or n): ");
 			if (response.contains("yes") || response.contains("y")) {
 				return true;
 			} else if (response.contains("no") || response.contains("n")) {

@@ -1,5 +1,6 @@
 package edu.smith.cs.csc212.spooky;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -71,9 +72,36 @@ public class Exit {
 	 */
 	public boolean equals(Object other) {
 		if (other instanceof Exit) {
-			Exit rhs = (Exit) other;
+			Exit rhs = (Exit) other; 
 			return this.target.equals(rhs.target) && this.description.equals(rhs.description); 
 		}
 		return false;
 	}
+	/**
+	 * public void here doesn't change regular exits
+	 */
+	public void search() {
+		
+	}
+	
+	
+	/**
+	 * Regular exits are not secret, just secretexits.
+	 * @return boolean value false
+	 */
+	public boolean isSecret() {
+		return false;
+	}
+	
+	/**
+	 * hidden is false-in general exits are not hidden
+	 * @return false
+	 */
+	public boolean hidden() {
+			return false;
+		
+	}
 }
+
+	
+	
